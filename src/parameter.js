@@ -45,4 +45,4 @@ class Parameter extends React.Component {
   }
 }
 
-module.exports = Parameter;
+ export default Parameter;
