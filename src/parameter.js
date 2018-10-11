@@ -1,4 +1,5 @@
 import React from "react";
+import parametersConfig from './parametersConfig'
 
 class Parameter extends React.Component {
   constructor(props) {
@@ -20,17 +21,18 @@ class Parameter extends React.Component {
   }
 
   render() {
+    const parameters = parametersConfig.map((parameter) => {
+      return <option key={parameter.id} value={parameter.id}>{parameter.name}</option>
+    })
     return (
       <div>
         <div>
-          <input
-            type="number"
-            min="0"
-            max="255"
-            step="1"
+          <select
             value={this.state.number}
             onChange={this._numberChange.bind(this)}
-          />
+          >
+            {parameters}
+          </select>
           <input
             type="range"
             min="0"
