@@ -155,5 +155,160 @@ export default [
     min: 0,
     max: 48,
     default: 24
+  },
+  {
+    id: 63,
+    name: 'Poly/Mono',
+    min: 0,
+    max: 1
+  },
+  {
+    id: 64,
+    name: 'Pitch Bend Range',
+    min: 0,
+    max: 12
+  },
+  {
+    id: 65,
+    name: 'Portamento Mode',
+    min: 0,
+    max: 1
+  },
+  {
+    id: 66,
+    name: 'Portamento Time',
+    min: 0,
+    max: 99
+  },
+  {
+    id: 67,
+    name: 'Foot Control Volume',
+    min: 0,
+    max: 99
+  },
+  {
+    id: 68,
+    name: 'Sustain',
+    min: 0,
+    max: 99
+  },
+  {
+    id: 69,
+    name: 'Portamento',
+    min: 0,
+    max: 1
+  },
+  {
+    id: 70,
+    name: 'Chorus',
+    min: 0,
+    max: 1
+  },
+  {
+    id: 71,
+    name: 'Modulation Wheel Pitch',
+    min: 0,
+    max: 99
+  },
+  {
+    id: 72,
+    name: 'Modulation Wheel Amplitude',
+    min: 0,
+    max: 99
+  },
+  {
+    id: 73,
+    name: 'Breath Control Pitch',
+    min: 0,
+    max: 99
+  },
+  {
+    id: 74,
+    name: 'Breath Control Amplitude',
+    min: 0,
+    max: 99
+  },
+  {
+    id: 75,
+    name: 'Breath Control Pitch Bias',
+    min: 0,
+    max: 99,
+    default: 50
+  },
+  {
+    id: 76,
+    name: 'Breath Control EG Bias',
+    min: 0,
+    max: 99
+  },
+  // TODO: replace this by-character input with normal string
+  {
+    id: 77,
+    name: 'Voice name char 1',
+    min: 32,
+    max: 127
+  },
+  {
+    id: 78,
+    name: 'Voice name char 2',
+    min: 32,
+    max: 127
+  },
+  {
+    id: 79,
+    name: 'Voice name char 3',
+    min: 32,
+    max: 127
+  },
+  {
+    id: 80,
+    name: 'Voice name char 4',
+    min: 32,
+    max: 127
+  },
+  {
+    id: 81,
+    name: 'Voice name char 5',
+    min: 32,
+    max: 127
+  },
+  {
+    id: 82,
+    name: 'Voice name char 6',
+    min: 32,
+    max: 127
+  },
+  {
+    id: 83,
+    name: 'Voice name char 7',
+    min: 32,
+    max: 127
+  },
+  {
+    id: 84,
+    name: 'Voice name char 8',
+    min: 32,
+    max: 127
+  },
+  {
+    id: 85,
+    name: 'Voice name char 9',
+    min: 32,
+    max: 127
+  },
+  {
+    id: 86,
+    name: 'Voice name char 10',
+    min: 32,
+    max: 127
+  },
+  // Parameters 87-92 not used in the TX81Z
+  // This is a tricky one. Data is encoded here as 4-bit number (0-1,0-1,0-1,0-1)
+  // TODO: find some nice interface solution
+  {
+    id: 93,
+    name: 'Operator 4-1 On/Off',
+    min: 0,
+    max: 15
   }
 ]
