@@ -88,5 +88,72 @@ export default [
   ...operatorParameters(4,0),
   ...operatorParameters(3,13),
   ...operatorParameters(2,26),
-  ...operatorParameters(1,39)
+  ...operatorParameters(1,39),
+  {
+    id: 52,
+    name: 'Algorithm',
+    min: 0,
+    max: 7
+  },
+  {
+    id: 53,
+    name: 'Feedback',
+    min: 0,
+    max: 7
+  },
+  {
+    id: 54,
+    name: 'LFO Speed',
+    min: 0,
+    max: 99
+  },
+  {
+    id: 55,
+    name: 'LFO Delay',
+    min: 0,
+    max: 99
+  },
+  {
+    id: 56,
+    name: 'Pitch Modulation Depth',
+    min: 0,
+    max: 99
+  },
+  {
+    id: 57,
+    name: 'Amplitude Modulation Depth',
+    min: 0,
+    max: 99
+  },
+  {
+    id: 58,
+    name: 'LFO Sync',
+    min: 0,
+    max: 1
+  },
+  {
+    id: 59,
+    name: 'LFO Wave',
+    min: 0,
+    max: 3
+  },
+  {
+    id: 60,
+    name: 'Pitch Modulation Sensitivity',
+    min: 0,
+    max: 7
+  },
+  {
+    id: 61,
+    name: 'Amplitude Modulation Sensitivity',
+    min: 0,
+    max: 3
+  },
+  {
+    id: 62,
+    name: 'Transpose',
+    min: 0,
+    max: 48,
+    default: 24
+  }
 ]
