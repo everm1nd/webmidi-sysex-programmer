@@ -23,7 +23,10 @@ class App extends React.Component {
         console.log("WebMidi could not be enabled.", err);
       } else {
         console.log("WebMidi enabled!");
-        this.setState({ midiOutputs: WebMidi.outputs });
+        this.setState({
+          midiOutputs: WebMidi.outputs,
+          midiOutputId: 0 // default to the first output in the list
+        });
       }
     }, true);
   }
@@ -32,35 +35,35 @@ class App extends React.Component {
     this.setState({ value: event.target.value });
   }
 
+  _currentMidiOutput() {
+    return this.state.midiOutputs[this.state.midiOutputId]
+  }
+
   _emitMidi(number, value) {
     console.log("output MIDI message:", number, value);
-    this.state.midiOutput.send(0xf0, messageFactory.makeVoiceEditMessage(number, value));
+    this._currentMidiOutput().send(0xf0, messageFactory.makeVoiceEditMessage(number, value));
   }
 
   _changeOutput(event) {
-    const name = event.target.value;
-    const midiOutput = WebMidi.getOutputByName(name);
-    console.log("Switched MIDI output to", midiOutput.name);
-    this.setState({ midiOutput });
+    const midiOutputId = event.target.value;
+    console.log("Switched MIDI output to", this.state.midiOutputs[midiOutputId]);
+    this.setState({ midiOutputId });
+  }
+
+  _midiOutputs() {
+    return this.state.midiOutputs.map(({ name }, index) => (
+      <option key={name} value={index}>{name}</option>
+    ));
   }
 
   render() {
-    const midiOutputs = this.state.midiOutputs.map(midiOutput => {
-      const name = midiOutput.name;
-      return (
-        <option key={name} value={name}>
-          {name}
-        </option>
-      );
-    });
-    console.log("midi outs DOM", midiOutputs);
     return (
       <div className="App">
         <h1>WebMIDI</h1>
         <h2>An experiment with SysEx and WebMIDI</h2>
-        <select name="output" onChange={this._changeOutput.bind(this)}>
+        <select name="output" value={this.state.midiOutputId} onChange={this._changeOutput.bind(this)}>
           <option value="">select MIDI output</option>
-          {midiOutputs}
+          {this._midiOutputs()}
         </select>
         <Parameter number="0" onChange={this._emitMidi.bind(this)} />
         <Parameter number="1" onChange={this._emitMidi.bind(this)} />
