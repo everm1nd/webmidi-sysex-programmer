@@ -4,17 +4,22 @@ import parametersConfig from './parametersConfig'
 class Parameter extends React.Component {
   constructor(props) {
     super();
-    const config = parametersConfig.find((parameter) => parameter.id == props.number)
-    this.state = {
-      number: props.number,
+    this.state = this._initialStateFromConfig(props.number)
+  }
+
+  _initialStateFromConfig(number) {
+    const config = parametersConfig.find((parameter) => parameter.id == number)
+    return {
+      number,
       value: config.default || 0,
       min: config.min || 0,
       max: config.max || 127
-    };
+    }
   }
 
   _numberChange(event) {
-    this.setState({ number: event.target.value });
+    const parameterNumber = event.target.value;
+    this.setState(this._initialStateFromConfig(parameterNumber));
   }
 
   _valueChange(event) {

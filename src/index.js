@@ -66,7 +66,7 @@ class App extends React.Component {
         <Parameter number="1" onChange={this._emitMidi.bind(this)} />
         <Parameter number="2" onChange={this._emitMidi.bind(this)} />
         <Parameter number="3" onChange={this._emitMidi.bind(this)} />
-        <Parameter number="4" onChange={this._emitMidi.bind(this)} />
+        <Parameter number="12" onChange={this._emitMidi.bind(this)} />
       </div>
     );
   }
