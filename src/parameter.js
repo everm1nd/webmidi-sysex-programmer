@@ -4,9 +4,12 @@ import parametersConfig from './parametersConfig'
 class Parameter extends React.Component {
   constructor(props) {
     super();
+    const config = parametersConfig.find((parameter) => parameter.id == props.number)
     this.state = {
       number: props.number,
-      value: 63
+      value: config.default || 0,
+      min: config.min || 0,
+      max: config.max || 127
     };
   }
 
@@ -20,10 +23,13 @@ class Parameter extends React.Component {
     });
   }
 
+  _parameters() {
+    return parametersConfig.map((parameter) => (
+        <option key={parameter.id} value={parameter.id}>{parameter.name}</option>
+    ))
+  }
+
   render() {
-    const parameters = parametersConfig.map((parameter) => {
-      return <option key={parameter.id} value={parameter.id}>{parameter.name}</option>
-    })
     return (
       <div>
         <div>
@@ -31,12 +37,12 @@ class Parameter extends React.Component {
             value={this.state.number}
             onChange={this._numberChange.bind(this)}
           >
-            {parameters}
+            {this._parameters()}
           </select>
           <input
             type="range"
-            min="0"
-            max="127"
+            min={this.state.min}
+            max={this.state.max}
             value={this.state.value}
             onChange={this._valueChange.bind(this)}
           />
