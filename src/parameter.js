@@ -8,7 +8,7 @@ class Parameter extends React.Component {
   }
 
   _initialStateFromConfig(number) {
-    const config = parametersConfig.find((parameter) => parameter.id == number)
+    const config = parametersConfig.find((parameter) => parameter.id === parseInt(number))
     return {
       number,
       value: config.default || 0,
