@@ -26,10 +26,6 @@ class App extends React.Component {
     }, true);
   }
 
-  _valueChange(event) {
-    this.setState({ value: event.target.value });
-  }
-
   _emitMidi(number, value) {
     console.log("output MIDI message:", number, value);
     this.state.midiOutput.send(0xf0, messageFactory.makeVoiceEditMessage(number, value));
