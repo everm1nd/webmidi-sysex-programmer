@@ -2,3 +2,10 @@
   font-family: sans-serif;
   text-align: center;
 }
+
+.parameter label {
+  display: inline-block;
+  width: 30px;
+  text-align: left;
+  margin-left: 5px;
+}

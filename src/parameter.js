@@ -37,7 +37,7 @@ class Parameter extends React.Component {
   render() {
     return (
       <div>
-        <div>
+        <div className="parameter">
           <select
             value={this.state.number}
             onChange={this._numberChange.bind(this)}
