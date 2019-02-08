@@ -7,6 +7,7 @@ import WebMidi from "webmidi";
 import Parameter from "./parameter";
 import MidiSelect from "./midiSelect";
 import messageFactory from './messageFactory'
+import midiBridge from "./midiBridge";
 
 class App extends React.Component {
   state = {
@@ -27,13 +28,14 @@ class App extends React.Component {
   }
 
   _emitMidi(number, value) {
-    console.log("output MIDI message:", number, value);
-    this.state.midiOutput.send(0xf0, messageFactory.makeVoiceEditMessage(number, value));
+    const message = messageFactory.makeVoiceEditMessage(number, value);
+    this.state.midiOutput.next(message);
   }
 
   _changeOutput(midiOutput) {
     console.log("Switched MIDI output to", midiOutput);
-    this.setState({ midiOutput });
+    const bridge = midiBridge(midiOutput);
+    this.setState({ midiOutput: bridge });
   }
 
   render() {

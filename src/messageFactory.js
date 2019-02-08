@@ -1,4 +1,4 @@
-const makeVoiceEditMessage = (param = 0x02, value = 0x00) => {
+const makeVoiceEditMessage = (param, value) => {
   // Format Info from Yamaha TX81Z Manual:
   // Voice Edit Parameters (VCED)
   // 11110000 F0h Exclusive
@@ -18,7 +18,10 @@ const makeVoiceEditMessage = (param = 0x02, value = 0x00) => {
     value,
     0xf7 // End Of System Exclusive message
   ];
-  return message;
+  return {
+    shard: param,
+    message
+  };
 };
 
 export default {
