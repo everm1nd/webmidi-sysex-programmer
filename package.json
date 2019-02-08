@@ -9,6 +9,7 @@
     "react": "16.5.2",
     "react-dom": "16.5.2",
     "react-scripts": "2.0.3",
+    "rxjs": "^6.4.0",
     "webmidi": "2.2.0"
   },
   "devDependencies": {},
