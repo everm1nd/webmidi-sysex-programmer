@@ -17,13 +17,12 @@ class Parameter extends React.Component {
     }
   }
 
-  _numberChange(event) {
-    const parameterNumber = event.target.value;
+  _numberChange({ target: { value: parameterNumber }}) {
     this.setState(this._initialStateFromConfig(parameterNumber));
   }
 
-  _valueChange(event) {
-    this.setState({ value: event.target.value }, state => {
+  _valueChange({ target: { value }}) {
+    this.setState({ value }, state => {
       this.props.onChange(this.state.number, this.state.value);
     });
   }
