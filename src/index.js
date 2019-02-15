@@ -11,7 +11,7 @@ import midiBridge from "./midiBridge";
 
 class App extends React.Component {
   state = {
-    midiActive: false,
+    midiEnabled: false,
     midiOutput: null // will be set later by midiSelect component
   }
 
@@ -22,7 +22,7 @@ class App extends React.Component {
         console.log("WebMidi could not be enabled.", err);
       } else {
         console.log("WebMidi enabled!");
-        this.setState({ midiActive: true });
+        this.setState({ midiEnabled: true });
       }
     }, true);
   }
@@ -43,7 +43,7 @@ class App extends React.Component {
       <div className="App">
         <h1>WebMIDI</h1>
         <h2>An experiment with SysEx and WebMIDI</h2>
-        <MidiSelect active={this.state.midiActive} onChange={this._changeOutput.bind(this)} />
+        <MidiSelect active={this.state.midiEnabled} onChange={this._changeOutput.bind(this)} />
         <Parameter number="0" onChange={this._emitMidi.bind(this)} />
         <Parameter number="1" onChange={this._emitMidi.bind(this)} />
         <Parameter number="2" onChange={this._emitMidi.bind(this)} />
