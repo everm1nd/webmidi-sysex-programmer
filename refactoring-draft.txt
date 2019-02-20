@@ -1,0 +1,32 @@
+### App
+
+  - MidiSelect
+    - onChange()
+  - ParameterList
+    - parameters: Array[Parameter]
+  - Parameter
+    - onChange()
+
+### Load Preset Functionality
+
+  - lift global parameters state to `App`
+
+  App.state = {
+    state = {
+      // midiActive: Boolean,
+      // midiOutput: MidiBridge
+
+      midi: {
+        active: Boolean, // defines state of WebMidi
+        output: MidiBridge
+      },
+      parameters: [
+        {
+          number: Integer,
+          value: Integer
+        }
+      ]
+    }
+  }
+
+  ParametersList parameters=this.parameters

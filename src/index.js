@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import _ from "lodash";
+
 import "./styles.css";
 
 import WebMidi from "webmidi";
@@ -13,13 +15,13 @@ class App extends React.Component {
   state = {
     midiEnabled: false,
     midiOutput: null, // will be set later by midiSelect component
-    parameters: [
-      { number: 0 },
-      { number: 1 },
-      { number: 2 },
-      { number: 3 },
-      { number: 4 }
-    ]
+    parameters: {
+      0: { value: 0 },
+      1: { value: 0 },
+      2: { value: 0 },
+      3: { value: 0 },
+      4: { value: 0 }
+    }
   }
 
   constructor() {
@@ -34,9 +36,12 @@ class App extends React.Component {
     }, true);
   }
 
-  _emitMidi(number, value) {
-    const message = messageFactory.makeVoiceEditMessage(number, value);
-    this.state.midiOutput.next(message);
+  _onParameterChange(number, value) {
+    const updatedState = Object.assign({}, this.state, { parameters: { [number]: { value } } })
+    this.setState(updatedState, (newState) => {
+      const message = messageFactory.makeVoiceEditMessage(number, value);
+      newState.midiOutput.next(message);
+    })
   }
 
   _changeOutput(midiOutput) {
@@ -51,7 +56,7 @@ class App extends React.Component {
         <h1>WebMIDI</h1>
         <h2>An experiment with SysEx and WebMIDI</h2>
         <MidiSelect active={this.state.midiEnabled} onChange={this._changeOutput.bind(this)} />
-        <ParameterList parameters={this.state.parameters} onChange={this._emitMidi.bind(this)} />
+        <ParameterList parameters={this.state.parameters} onChange={this._onParameterChange.bind(this)} />
       </div>
     );
   }
