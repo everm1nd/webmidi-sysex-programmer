@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import "./styles.css";
 
 import WebMidi from "webmidi";
-import Parameter from "./parameter";
+import ParameterList from "./parameterList";
 import MidiSelect from "./midiSelect";
 import messageFactory from './messageFactory'
 import midiBridge from "./midiBridge";
@@ -12,7 +12,14 @@ import midiBridge from "./midiBridge";
 class App extends React.Component {
   state = {
     midiEnabled: false,
-    midiOutput: null // will be set later by midiSelect component
+    midiOutput: null, // will be set later by midiSelect component
+    parameters: [
+      { number: 0 },
+      { number: 1 },
+      { number: 2 },
+      { number: 3 },
+      { number: 4 }
+    ]
   }
 
   constructor() {
@@ -44,11 +51,7 @@ class App extends React.Component {
         <h1>WebMIDI</h1>
         <h2>An experiment with SysEx and WebMIDI</h2>
         <MidiSelect active={this.state.midiEnabled} onChange={this._changeOutput.bind(this)} />
-        <Parameter number="0" onChange={this._emitMidi.bind(this)} />
-        <Parameter number="1" onChange={this._emitMidi.bind(this)} />
-        <Parameter number="2" onChange={this._emitMidi.bind(this)} />
-        <Parameter number="3" onChange={this._emitMidi.bind(this)} />
-        <Parameter number="12" onChange={this._emitMidi.bind(this)} />
+        <ParameterList parameters={this.state.parameters} onChange={this._emitMidi.bind(this)} />
       </div>
     );
   }
