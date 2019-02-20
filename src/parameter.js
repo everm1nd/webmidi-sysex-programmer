@@ -23,7 +23,7 @@ class Parameter extends React.Component {
 
   _valueChange({ target: { value }}) {
     this.setState({ value }, state => {
-      this.props.onChange(this.state.number, this.state.value);
+      this.props.onChange(parseInt(this.state.number), parseInt(this.state.value));
     });
   }
 
