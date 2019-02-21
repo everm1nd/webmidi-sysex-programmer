@@ -18,16 +18,18 @@ const updateHashArray = (array, index, override) => [
 ]
 
 class App extends React.Component {
+  _defaultParameters = [
+    { number: 0 },
+    { number: 1 },
+    { number: 2 },
+    { number: 3 },
+    { number: 4 }
+  ]
   state = {
     midiEnabled: false,
     midiOutput: null, // will be set later by midiSelect component
-    parameters: [
-      { number: 0 },
-      { number: 1 },
-      { number: 2 },
-      { number: 3 },
-      { number: 4 }
-    ]
+    autosave: true,
+    parameters: this._loadParameters()
   }
 
   constructor() {
@@ -42,6 +44,15 @@ class App extends React.Component {
     }, true);
   }
 
+  _loadParameters() {
+    return JSON.parse(localStorage.getItem('parameters')) || this._defaultParameters
+  }
+
+  _saveParameters(parameters) {
+    console.log('save parameters in localStorage', parameters);
+    return localStorage.setItem('parameters', JSON.stringify(parameters))
+  }
+
   _onParameterChange(id, updatedValues) {
     const parameters = updateHashArray(this.state.parameters, id, updatedValues)
     const updatedState = _.merge({}, this.state, { parameters })
@@ -49,6 +60,7 @@ class App extends React.Component {
       const parameter = this.state.parameters[id]
       const message = messageFactory.makeVoiceEditMessage(parameter.number, parameter.value);
       this.state.midiOutput.next(message);
+      if (this.state.autosave) this._saveParameters(this.state.parameters)
     })
   }
 
