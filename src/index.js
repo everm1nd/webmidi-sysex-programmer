@@ -22,11 +22,11 @@ class App extends React.Component {
     midiEnabled: false,
     midiOutput: null, // will be set later by midiSelect component
     parameters: [
-      { number: 0, value: 0 },
-      { number: 1, value: 0 },
-      { number: 2, value: 0 },
-      { number: 3, value: 0 },
-      { number: 4, value: 0 }
+      { number: 0 },
+      { number: 1 },
+      { number: 2 },
+      { number: 3 },
+      { number: 4 }
     ]
   }
 

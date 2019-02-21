@@ -1,6 +1,8 @@
 import React from "react";
 import parametersConfig from './parametersConfig'
 
+import _ from "lodash"
+
 class Parameter extends React.Component {
   constructor(props) {
     super();
@@ -20,11 +22,13 @@ class Parameter extends React.Component {
   }
 
   _numberChange({ target: { value: number }}) {
-    this.props.onChange(this.props.id, { number });
+    const parameters = _.pick(this.sliderValues(parseInt(number), this.props.value), ['number', 'value'])
+    this.props.onChange(this.props.id, parameters);
   }
 
   _valueChange({ target: { value }}) {
-    this.props.onChange(this.props.id, { value });
+    const parameters = _.pick(this.sliderValues(this.props.number, parseInt(value)), ['number', 'value'])
+    this.props.onChange(this.props.id, parameters);
   }
 
   _parameters() {
