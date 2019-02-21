@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import _ from "lodash";
+
 import "./styles.css";
 
 import WebMidi from "webmidi";
@@ -9,16 +11,22 @@ import MidiSelect from "./midiSelect";
 import messageFactory from './messageFactory'
 import midiBridge from "./midiBridge";
 
+const updateHashArray = (array, index, override) => [
+   ...array.slice(0, index),
+   _.merge({}, array[index], override),
+   ...array.slice(index + 1),
+]
+
 class App extends React.Component {
   state = {
     midiEnabled: false,
     midiOutput: null, // will be set later by midiSelect component
     parameters: [
-      { number: 0 },
-      { number: 1 },
-      { number: 2 },
-      { number: 3 },
-      { number: 4 }
+      { number: 0, value: 0 },
+      { number: 1, value: 0 },
+      { number: 2, value: 0 },
+      { number: 3, value: 0 },
+      { number: 4, value: 0 }
     ]
   }
 
@@ -34,9 +42,14 @@ class App extends React.Component {
     }, true);
   }
 
-  _emitMidi(number, value) {
-    const message = messageFactory.makeVoiceEditMessage(number, value);
-    this.state.midiOutput.next(message);
+  _onParameterChange(id, updatedValues) {
+    const parameters = updateHashArray(this.state.parameters, id, updatedValues)
+    const updatedState = _.merge({}, this.state, { parameters })
+    this.setState(updatedState, () => {
+      const parameter = this.state.parameters[id]
+      const message = messageFactory.makeVoiceEditMessage(parameter.number, parameter.value);
+      this.state.midiOutput.next(message);
+    })
   }
 
   _changeOutput(midiOutput) {
@@ -51,7 +64,7 @@ class App extends React.Component {
         <h1>WebMIDI</h1>
         <h2>An experiment with SysEx and WebMIDI</h2>
         <MidiSelect active={this.state.midiEnabled} onChange={this._changeOutput.bind(this)} />
-        <ParameterList parameters={this.state.parameters} onChange={this._emitMidi.bind(this)} />
+        <ParameterList parameters={this.state.parameters} onChange={this._onParameterChange.bind(this)} />
       </div>
     );
   }

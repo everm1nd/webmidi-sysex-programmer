@@ -1,13 +1,15 @@
 import React from "react";
 
+import _ from "lodash"
+
 import Parameter from "./parameter";
 
 class ParameterList extends React.Component {
   render() {
-    const parameters = this.props.parameters.map(parameter => {
-      return <Parameter {...parameter} onChange={this.props.onChange} />
+    const components = this.props.parameters.map((parameter, index) => {
+      return <Parameter key={index} id={index} {...parameter} onChange={this.props.onChange} />
     })
-    return <div>{parameters}</div>
+    return <div>{components}</div>
   }
 }
 
