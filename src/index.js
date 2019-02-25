@@ -19,17 +19,10 @@ const updateHashArray = (array, index, override) => [
 ]
 
 class App extends React.Component {
-  _defaultParameters = [
-    { number: 0 },
-    { number: 1 },
-    { number: 2 },
-    { number: 3 },
-    { number: 4 }
-  ]
   state = {
     midiEnabled: false,
     midiOutput: null, // will be set later by midiSelect component
-    parameters: this._loadParameters()
+    parameters: []
   }
 
   constructor() {
@@ -42,10 +35,6 @@ class App extends React.Component {
         this.setState({ midiEnabled: true });
       }
     }, true);
-  }
-
-  _loadParameters() {
-    return JSON.parse(localStorage.getItem('parameters')) || this._defaultParameters
   }
 
   _onParameterChange(id, updatedValues) {
