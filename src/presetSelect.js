@@ -1,9 +1,11 @@
 import React from "react";
 import WebMidi from "webmidi";
+import config from "./presets"
 
 class PresetSelect extends React.Component {
   state = {
-    presets: []
+    currentPreset: undefined,
+    presets: config
   }
 
   _presets() {
@@ -12,11 +14,24 @@ class PresetSelect extends React.Component {
     ));
   }
 
+  _onChange({ target: { value: presetId }}) {
+    this.setState({ currentPreset: config[presetId] })
+  }
+
+  _onLoad() {
+    this.props.onLoad(this.state.currentPreset)
+  }
+
   render() {
     return (
-      <select name="preset" onChange={this.props.onChange}>
-        {this._presets()}
-      </select>
+      <div>
+        <select name="preset" onChange={this._onChange.bind(this)}>
+          <option value=""># NEW PRESET #</option>
+          {this._presets()}
+        </select>
+        <button type="button" onClick={this._onLoad.bind(this)}>Load</button>
+        <button type="button" onClick={this.props.onSave}>Save</button>
+      </div>
     )
   }
 }

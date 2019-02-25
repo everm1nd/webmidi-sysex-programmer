@@ -8,6 +8,7 @@ import "./styles.css";
 import WebMidi from "webmidi";
 import ParameterList from "./parameterList";
 import MidiSelect from "./midiSelect";
+import PresetSelect from "./presetSelect"
 import messageFactory from './messageFactory'
 import midiBridge from "./midiBridge";
 
@@ -70,12 +71,18 @@ class App extends React.Component {
     this.setState({ midiOutput: bridge });
   }
 
+  _loadPreset({ parameters }) {
+    console.log('Loaded preset: ', parameters);
+    this.setState({ parameters })
+  }
+
   render() {
     return (
       <div className="App">
         <h1>WebMIDI</h1>
         <h2>An experiment with SysEx and WebMIDI</h2>
         <MidiSelect active={this.state.midiEnabled} onChange={this._changeOutput.bind(this)} />
+        <PresetSelect parameters={this.state.parameters} onLoad={this._loadPreset.bind(this)} />
         <ParameterList parameters={this.state.parameters} onChange={this._onParameterChange.bind(this)} />
       </div>
     );
