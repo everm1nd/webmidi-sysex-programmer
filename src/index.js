@@ -18,10 +18,15 @@ const updateHashArray = (array, index, override) => [
    ...array.slice(index + 1),
 ]
 
+// this is a midiOutput mock that just discards messages
+const midiOutputMock = {
+  next: () => {}
+}
+
 class App extends React.Component {
   state = {
     midiEnabled: false,
-    midiOutput: null, // will be set later by midiSelect component
+    midiOutput: midiOutputMock,
     parameters: []
   }
 
@@ -37,13 +42,17 @@ class App extends React.Component {
     }, true);
   }
 
+  _sendParameter({ number, value }) {
+    const message = messageFactory.makeVoiceEditMessage(number, value || 0);
+    this.state.midiOutput.next(message);
+  }
+
   _onParameterChange(id, updatedValues) {
     const parameters = updateHashArray(this.state.parameters, id, updatedValues)
     const updatedState = _.merge({}, this.state, { parameters })
     this.setState(updatedState, () => {
       const parameter = this.state.parameters[id]
-      const message = messageFactory.makeVoiceEditMessage(parameter.number, parameter.value);
-      this.state.midiOutput.next(message);
+      this._sendParameter(parameter)
     })
   }
 
@@ -55,7 +64,9 @@ class App extends React.Component {
 
   _loadPreset({ parameters }) {
     console.log('Loaded preset: ', parameters);
-    this.setState({ parameters })
+    this.setState({ parameters }, () => {
+      this.state.parameters.forEach(this._sendParameter.bind(this))
+    })
   }
 
   render() {
