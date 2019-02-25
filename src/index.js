@@ -29,7 +29,6 @@ class App extends React.Component {
   state = {
     midiEnabled: false,
     midiOutput: null, // will be set later by midiSelect component
-    autosave: true,
     parameters: this._loadParameters()
   }
 
@@ -49,11 +48,6 @@ class App extends React.Component {
     return JSON.parse(localStorage.getItem('parameters')) || this._defaultParameters
   }
 
-  _saveParameters(parameters) {
-    console.log('save parameters in localStorage', parameters);
-    return localStorage.setItem('parameters', JSON.stringify(parameters))
-  }
-
   _onParameterChange(id, updatedValues) {
     const parameters = updateHashArray(this.state.parameters, id, updatedValues)
     const updatedState = _.merge({}, this.state, { parameters })
@@ -61,7 +55,6 @@ class App extends React.Component {
       const parameter = this.state.parameters[id]
       const message = messageFactory.makeVoiceEditMessage(parameter.number, parameter.value);
       this.state.midiOutput.next(message);
-      if (this.state.autosave) this._saveParameters(this.state.parameters)
     })
   }
 
