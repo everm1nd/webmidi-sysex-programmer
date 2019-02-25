@@ -50,7 +50,8 @@ class PresetSelect extends React.Component {
       })
     }
     this.setState({
-      presets: newPresets
+      presets: newPresets,
+      presetId: this.state.presetId || this.props.parameters.length // switch to new preset after it's saved
     }, () => {
       console.log('Saving presets...', this.state.presets);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(this.state.presets))
@@ -60,7 +61,7 @@ class PresetSelect extends React.Component {
   render() {
     return (
       <div>
-        <select name="preset" onChange={this._onChange.bind(this)}>
+        <select name="preset" value={this.state.presetId} onChange={this._onChange.bind(this)}>
           <option value=""># NEW PRESET #</option>
           {this._presets()}
         </select>
