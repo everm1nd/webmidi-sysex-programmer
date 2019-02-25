@@ -13,6 +13,10 @@ class PresetSelect extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.props.onLoad(this.state.presets[0]) // this will load first preset
+  }
+
   _loadPresets() {
     const presets = JSON.parse( localStorage.getItem(STORAGE_KEY))
     if (presets == null) {
