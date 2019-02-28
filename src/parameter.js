@@ -4,15 +4,12 @@ import parametersConfig from './parametersConfig'
 import _ from "lodash"
 
 class Parameter extends React.Component {
-  constructor(props) {
-    super();
-    this.state = {
-      config: parametersConfig.find((parameter) => parameter.id === parseInt(props.number))
-    }
+  _getConfig() {
+    return parametersConfig.find((parameter) => parameter.id === parseInt(this.props.number))
   }
 
   sliderValues(number, value) {
-    const config = this.state.config;
+    const config = this._getConfig()
     return {
       number,
       value: value || config.default || 0,
@@ -22,12 +19,15 @@ class Parameter extends React.Component {
   }
 
   _numberChange({ target: { value: number }}) {
-    const parameters = _.pick(this.sliderValues(parseInt(number), this.props.value), ['number', 'value'])
-    this.props.onChange(this.props.id, parameters);
+    this._changeParameter(parseInt(number), 0)
   }
 
   _valueChange({ target: { value }}) {
-    const parameters = _.pick(this.sliderValues(this.props.number, parseInt(value)), ['number', 'value'])
+    this._changeParameter(this.props.number, parseInt(value))
+  }
+
+  _changeParameter(number, value) {
+    const parameters = _.pick(this.sliderValues(number, value), ['number', 'value'])
     this.props.onChange(this.props.id, parameters);
   }
 
