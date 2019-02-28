@@ -1,7 +1,5 @@
 import React from "react";
 
-import _ from "lodash"
-
 import Parameter from "./parameter";
 
 class ParameterList extends React.Component {

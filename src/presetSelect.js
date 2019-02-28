@@ -1,5 +1,4 @@
 import React from "react";
-import WebMidi from "webmidi";
 import defaultPresets from "./presets"
 
 const STORAGE_KEY = 'presets'
