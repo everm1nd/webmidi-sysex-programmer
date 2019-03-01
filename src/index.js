@@ -6,7 +6,7 @@ import _ from "lodash";
 import "./styles.css";
 
 import WebMidi from "webmidi";
-import ParameterList from "./parameterList";
+import ControlsLayout from "./controlsLayout";
 import MidiSelect from "./midiSelect";
 import PresetSelect from "./presetSelect"
 import messageFactory from './messageFactory'
@@ -76,7 +76,7 @@ class App extends React.Component {
         <h2>An experiment with SysEx and WebMIDI</h2>
         <MidiSelect active={this.state.midiEnabled} onChange={this._changeOutput.bind(this)} />
         <PresetSelect parameters={this.state.parameters} onLoad={this._loadPreset.bind(this)} />
-        <ParameterList parameters={this.state.parameters} onChange={this._onParameterChange.bind(this)} />
+        <ControlsLayout parameters={this.state.parameters} onChange={this._onParameterChange.bind(this)} />
       </div>
     );
   }
