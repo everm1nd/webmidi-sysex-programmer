@@ -2,13 +2,52 @@ import React from "react";
 
 import Parameter from "./parameter";
 
-class ParameterList extends React.Component {
-  render() {
-    const components = this.props.parameters.map((parameter, index) => {
-      return <Parameter key={index} id={index} {...parameter} onChange={this.props.onChange} />
+import layout from "./layout";
+
+class ControlsLayout extends React.Component {
+  state = {
+    layout
+  }
+
+  constructor() {
+    super()
+    this._renderGroup = this._renderGroup.bind(this)
+    this._renderElement = this._renderElement.bind(this)
+    this._renderParameter = this._renderParameter.bind(this)
+  }
+
+  _renderParameter(parameter, index) {
+    return <Parameter key={index} id={index} {...parameter} onChange={this.props.onChange} />
+  }
+
+  _renderGroup(group, parentIndex) {
+    const elements = group.elements.map((element, index) => {
+      return this._renderElement(element, `${parentIndex}/${index}`)
     })
-    return <div>{components}</div>
+    return <div key={parentIndex}>
+      <p>{group.name}</p>
+      {elements}
+    </div>
+  }
+
+  _renderElement(element, parentIndex) {
+    switch (element.type) {
+      case 'group':
+        return this._renderGroup(element, parentIndex)
+        break;
+      case 'parameter':
+        return this._renderParameter(element, parentIndex)
+        break;
+      default:
+        console.log('Unknown element type in layout', element)
+        break;
+    }
+  }
+
+  render() {
+    const elements = this.state.layout.map(this._renderElement)
+    return <div>{elements}</div>
   }
 }
 
- export default ParameterList;
+ export default ControlsLayout;
