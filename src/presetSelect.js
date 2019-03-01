@@ -2,6 +2,7 @@ import React from "react";
 import defaultPresets from "./presets"
 
 const STORAGE_KEY = 'presets'
+const AUTOLOAD_PRESETS = false
 
 class PresetSelect extends React.Component {
   constructor() {
@@ -17,7 +18,7 @@ class PresetSelect extends React.Component {
   }
 
   _loadPresets() {
-    const presets = JSON.parse( localStorage.getItem(STORAGE_KEY))
+    const presets = AUTOLOAD_PRESETS ? JSON.parse(localStorage.getItem(STORAGE_KEY)) : null
     if (presets == null) {
       console.log('Initialising presets storage...');
       localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultPresets))
