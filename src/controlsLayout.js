@@ -1,4 +1,5 @@
 import React from "react";
+import produce from "immer";
 
 import Parameter from "./parameter";
 
@@ -20,8 +21,10 @@ class ControlsLayout extends React.Component {
   _handleTypeChange(id, number) {
     // TODO: make this function more universal to work with complex nested layouts
     const [groupId, elementId] = id.split('/')
-    this.state.layout[groupId].elements[elementId].number = number // TODO: get rid of this mutability here
-    this.setState(this.state)
+    const newState = produce(this.state, draftState => {
+      draftState.layout[groupId].elements[elementId].number = number
+    })
+    this.setState(newState)
   }
 
   _renderParameter(parameter, index) {
