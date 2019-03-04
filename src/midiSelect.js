@@ -1,23 +1,33 @@
 import React from "react";
 import WebMidi from "webmidi";
 
+import { FormField, Select } from 'grommet';
+
 class MidiSelect extends React.Component {
-  _changeOutput({ target: { value: interfaceId } }) {
-    this.props.onChange(WebMidi.outputs[interfaceId])
+  state = {
+    value: ""
   }
 
-  _midiOutputs() {
-    return WebMidi.outputs.map(({ name }, index) => (
-      <option key={name} value={index}>{name}</option>
-    ));
+  _changeOutput({ value: midiInterface }) {
+    this.setState({ value: midiInterface.name }, () => {
+      this.props.onChange(midiInterface)
+    })
   }
 
   render() {
     return (
-      <select name="output" onChange={this._changeOutput.bind(this)} disabled={!this.props.active}>
-        <option value="">select MIDI output</option>
-        {this._midiOutputs()}
-      </select>
+      <FormField label="MIDI Interface">
+        <Select
+          options={WebMidi.outputs}
+          children={({name}, index)=>{
+            return <option value={index}>{name}</option>
+          }}
+          value={this.state.value}
+          placeholder="select MIDI output"
+          onChange={this._changeOutput.bind(this)}
+          disabled={!this.props.active}
+        />
+      </FormField>
     )
   }
 }
