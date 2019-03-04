@@ -4,8 +4,9 @@ import ReactDOM from "react-dom";
 import _ from "lodash";
 
 import "./styles.css";
+import theme from "./theme"
 
-import { Grommet } from 'grommet';
+import { Box, Grommet } from 'grommet';
 
 import { createMuiTheme } from '@material-ui/core/styles';
 import { Button, Typography } from '@material-ui/core';
@@ -21,16 +22,6 @@ import midiBridge from "./midiBridge";
 const midiOutputMock = {
   next: () => {}
 }
-
-const theme = {
-  global: {
-    font: {
-      family: 'Roboto',
-      size: '16px',
-      height: '20px',
-    },
-  },
-};
 
 class App extends React.Component {
   state = {
@@ -87,8 +78,13 @@ class App extends React.Component {
         <Typography variant="h4" gutterBottom>
           An experiment with SysEx and WebMIDI
         </Typography>
-        <MidiSelect active={this.state.midiEnabled} onChange={this._changeOutput.bind(this)} />
-        <PresetSelect parameters={this.state.parameters} onLoad={this._loadPreset.bind(this)} />
+
+        <Box direction='row'>
+          <MidiSelect active={this.state.midiEnabled} onChange={this._changeOutput.bind(this)} />
+          <PresetSelect parameters={this.state.parameters} onLoad={this._loadPreset.bind(this)} />
+        </Box>
+
+
         <ControlsLayout parameters={this.state.parameters} onChange={this._onParameterChange.bind(this)} />
       </Grommet>
     );

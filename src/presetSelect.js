@@ -63,14 +63,14 @@ class PresetSelect extends React.Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <select name="preset" value={this.state.presetId} onChange={this._onChange.bind(this)}>
           <option value=""># NEW PRESET #</option>
           {this._presets()}
         </select>
         <button type="button" onClick={this._onLoad.bind(this)}>Load</button>
         <button type="button" onClick={this._onSave.bind(this)}>Save</button>
-      </div>
+      </React.Fragment>
     )
   }
 }
