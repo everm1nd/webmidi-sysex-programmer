@@ -5,6 +5,11 @@ import _ from "lodash";
 
 import "./styles.css";
 
+import { Grommet } from 'grommet';
+
+import { createMuiTheme } from '@material-ui/core/styles';
+import { Button, Typography } from '@material-ui/core';
+
 import WebMidi from "webmidi";
 import ControlsLayout from "./controlsLayout";
 import MidiSelect from "./midiSelect";
@@ -16,6 +21,16 @@ import midiBridge from "./midiBridge";
 const midiOutputMock = {
   next: () => {}
 }
+
+const theme = {
+  global: {
+    font: {
+      family: 'Roboto',
+      size: '16px',
+      height: '20px',
+    },
+  },
+};
 
 class App extends React.Component {
   state = {
@@ -65,13 +80,17 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        <h1>WebMIDI</h1>
-        <h2>An experiment with SysEx and WebMIDI</h2>
+      <Grommet theme={theme}>
+        <Typography variant="h2" gutterBottom>
+          WebMIDI
+        </Typography>
+        <Typography variant="h4" gutterBottom>
+          An experiment with SysEx and WebMIDI
+        </Typography>
         <MidiSelect active={this.state.midiEnabled} onChange={this._changeOutput.bind(this)} />
         <PresetSelect parameters={this.state.parameters} onLoad={this._loadPreset.bind(this)} />
         <ControlsLayout parameters={this.state.parameters} onChange={this._onParameterChange.bind(this)} />
-      </div>
+      </Grommet>
     );
   }
 }

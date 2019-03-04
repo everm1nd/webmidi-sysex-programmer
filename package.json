@@ -5,9 +5,11 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "@material-ui/core": "^3.9.2",
     "grommet": "^2.5.5",
     "immer": "^2.1.0",
     "lodash": "4.17.11",
+    "polished": "^3.0.3",
     "react": "16.5.2",
     "react-dom": "16.5.2",
     "react-scripts": "2.0.3",
