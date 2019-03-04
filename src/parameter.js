@@ -23,12 +23,8 @@ class Parameter extends React.Component {
   }
 
   _valueChange({ target: { value }}) {
-    this._changeParameter(this.props.number, parseInt(value))
-  }
-
-  _changeParameter(number, value) {
-    const parameter = _.pick(this.sliderValues(number, value), ['number', 'value'])
-    this.props.onChange(parameter);
+    const parameter = _.pick(this.sliderValues(this.props.number, parseInt(value)), ['number', 'value'])
+    this.props.onValueChange(parameter);
   }
 
   _parameters() {
