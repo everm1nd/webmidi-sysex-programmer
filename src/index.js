@@ -8,8 +8,7 @@ import theme from "./theme"
 
 import { Box, Grommet } from 'grommet';
 
-import { createMuiTheme } from '@material-ui/core/styles';
-import { Button, Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 import WebMidi from "webmidi";
 import ControlsLayout from "./controlsLayout";
@@ -83,7 +82,6 @@ class App extends React.Component {
           <MidiSelect active={this.state.midiEnabled} onChange={this._changeOutput.bind(this)} />
           <PresetSelect parameters={this.state.parameters} onLoad={this._loadPreset.bind(this)} />
         </Box>
-
 
         <ControlsLayout parameters={this.state.parameters} onChange={this._onParameterChange.bind(this)} />
       </Grommet>

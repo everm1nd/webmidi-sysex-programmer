@@ -1,13 +1,15 @@
 import React from "react";
 import defaultPresets from "./presets"
 
+import { Box, FormField, Select, Button } from "grommet";
+
 const STORAGE_KEY = 'presets'
 
 class PresetSelect extends React.Component {
   constructor() {
     super();
     this.state = {
-      presetId: undefined,
+      currentPreset: "",
       presets: this._loadPresets()
     }
   }
@@ -28,18 +30,12 @@ class PresetSelect extends React.Component {
     }
   }
 
-  _presets() {
-    return this.state.presets.map(({ name }, index) => (
-      <option key={index} value={index}>{name}</option>
-    ));
-  }
-
-  _onChange({ target: { value: presetId }}) {
-    this.setState({ presetId })
+  _onChange(preset) {
+    this.setState({ currentPreset: preset.value })
   }
 
   _onLoad() {
-    this.props.onLoad(this.state.presets[this.state.presetId])
+    this.props.onLoad(this.state.currentPreset)
   }
 
   _onSave() {
@@ -63,14 +59,20 @@ class PresetSelect extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
-        <select name="preset" value={this.state.presetId} onChange={this._onChange.bind(this)}>
-          <option value=""># NEW PRESET #</option>
-          {this._presets()}
-        </select>
-        <button type="button" onClick={this._onLoad.bind(this)}>Load</button>
-        <button type="button" onClick={this._onSave.bind(this)}>Save</button>
-      </React.Fragment>
+      <Box direction="row">
+        <FormField label="Preset">
+          <Select
+            options={this.state.presets.map((preset, id) => ({ ...preset, id }))}
+            value={this.state.currentPreset}
+            valueKey="id"
+            labelKey="name"
+            placeholder="# NEW PRESET #"
+            onChange={this._onChange.bind(this)}
+          />
+        </FormField>
+        <Button label="Load" onClick={this._onLoad.bind(this)} />
+        <Button label="Save" onClick={this._onSave.bind(this)} />
+      </Box>
     )
   }
 }
