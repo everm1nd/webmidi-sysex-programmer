@@ -78,7 +78,7 @@ class App extends React.Component {
           An experiment with SysEx and WebMIDI
         </Typography>
 
-        <Box direction='row'>
+        <Box direction='row' gap='large'>
           <MidiSelect active={this.state.midiEnabled} onChange={this._changeOutput.bind(this)} />
           <PresetSelect parameters={this.state.parameters} onLoad={this._loadPreset.bind(this)} />
         </Box>

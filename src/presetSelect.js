@@ -61,17 +61,19 @@ class PresetSelect extends React.Component {
     return (
       <Box direction="row">
         <FormField label="Preset">
-          <Select
-            options={this.state.presets.map((preset, id) => ({ ...preset, id }))}
-            value={this.state.currentPreset}
-            valueKey="id"
-            labelKey="name"
-            placeholder="# NEW PRESET #"
-            onChange={this._onChange.bind(this)}
-          />
+          <Box direction='row' gap='xsmall'>
+            <Select
+              options={this.state.presets.map((preset, id) => ({ ...preset, id }))}
+              value={this.state.currentPreset}
+              valueKey="id"
+              labelKey="name"
+              placeholder="# NEW PRESET #"
+              onChange={this._onChange.bind(this)}
+            />
+            <Button label="Load" onClick={this._onLoad.bind(this)} />
+            <Button label="Save" onClick={this._onSave.bind(this)} />
+          </Box>
         </FormField>
-        <Button label="Load" onClick={this._onLoad.bind(this)} />
-        <Button label="Save" onClick={this._onSave.bind(this)} />
       </Box>
     )
   }
