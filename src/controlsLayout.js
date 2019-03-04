@@ -14,6 +14,14 @@ class ControlsLayout extends React.Component {
     this._renderGroup = this._renderGroup.bind(this)
     this._renderElement = this._renderElement.bind(this)
     this._renderParameter = this._renderParameter.bind(this)
+    this._handleTypeChange = this._handleTypeChange.bind(this)
+  }
+
+  _handleTypeChange(id, number) {
+    // TODO: make this function more universal to work with complex nested layouts
+    const [groupId, elementId] = id.split('/')
+    this.state.layout[groupId].elements[elementId].number = number // TODO: get rid of this mutability here
+    this.setState(this.state)
   }
 
   _renderParameter(parameter, index) {
@@ -21,7 +29,7 @@ class ControlsLayout extends React.Component {
       number: parameter.number,
       value: this.props.parameters[parameter.number]
     }
-    return <Parameter key={index} id={index} {...parameterValues} onValueChange={this.props.onChange} />
+    return <Parameter key={index} id={index} {...parameterValues} onTypeChange={this._handleTypeChange} onValueChange={this.props.onChange} />
   }
 
   _renderGroup(group, parentIndex) {

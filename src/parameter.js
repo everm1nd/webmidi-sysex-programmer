@@ -19,7 +19,7 @@ class Parameter extends React.Component {
   }
 
   _numberChange({ target: { value: number }}) {
-    // this._changeParameter(parseInt(number), 0)
+    this.props.onTypeChange(this.props.id, parseInt(number))
   }
 
   _valueChange({ target: { value }}) {
