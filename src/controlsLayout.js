@@ -17,7 +17,11 @@ class ControlsLayout extends React.Component {
   }
 
   _renderParameter(parameter, index) {
-    return <Parameter key={index} id={index} {...parameter} onChange={this.props.onChange} />
+    const parameterValues = {
+      number: parameter.number,
+      value: this.props.parameters[parameter.number]
+    }
+    return <Parameter key={index} id={index} {...parameterValues} onChange={this.props.onChange} />
   }
 
   _renderGroup(group, parentIndex) {

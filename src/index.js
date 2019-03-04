@@ -12,12 +12,6 @@ import PresetSelect from "./presetSelect"
 import messageFactory from './messageFactory'
 import midiBridge from "./midiBridge";
 
-const updateHashArray = (array, index, override) => [
-   ...array.slice(0, index),
-   _.merge({}, array[index], override),
-   ...array.slice(index + 1),
-]
-
 // this is a midiOutput mock that just discards messages
 const midiOutputMock = {
   next: () => {}
@@ -27,7 +21,7 @@ class App extends React.Component {
   state = {
     midiEnabled: false,
     midiOutput: midiOutputMock,
-    parameters: []
+    parameters: {}
   }
 
   constructor() {
@@ -47,12 +41,10 @@ class App extends React.Component {
     this.state.midiOutput.next(message);
   }
 
-  _onParameterChange(id, updatedValues) {
-    const parameters = updateHashArray(this.state.parameters, id, updatedValues)
-    const updatedState = _.merge({}, this.state, { parameters })
+  _onParameterChange({ number, value }) {
+    const updatedState = _.merge({}, this.state, { parameters: { [number]: value } })
     this.setState(updatedState, () => {
-      const parameter = this.state.parameters[id]
-      this._sendParameter(parameter)
+      this._sendParameter({ number, value })
     })
   }
 
@@ -65,7 +57,9 @@ class App extends React.Component {
   _loadPreset({ parameters }) {
     console.log('Loaded preset: ', parameters);
     this.setState({ parameters }, () => {
-      this.state.parameters.forEach(this._sendParameter.bind(this))
+      Object.entries(this.state.parameters).forEach((entry) => {
+        this._sendParameter({ number: entry[0], value: entry[1] })
+      })
     })
   }
 
