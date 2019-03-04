@@ -1,6 +1,8 @@
 import React from "react";
 import produce from "immer";
 
+import { Box } from 'grommet'
+
 import Parameter from "./parameter";
 
 import layout from "./layout";
@@ -61,7 +63,9 @@ class ControlsLayout extends React.Component {
 
   render() {
     const elements = this.state.layout.map(this._renderElement)
-    return <div>{elements}</div>
+    return <Box direction='row'>
+      {elements}
+    </Box>
   }
 }
 
