@@ -1,7 +1,7 @@
 import React from "react";
 import produce from "immer";
 
-import { Box } from 'grommet'
+import { Box, Accordion, AccordionPanel } from 'grommet'
 
 import Parameter from "./parameter";
 
@@ -41,10 +41,11 @@ class ControlsLayout extends React.Component {
     const elements = group.elements.map((element, index) => {
       return this._renderElement(element, `${parentIndex}/${index}`)
     })
-    return <div key={parentIndex}>
-      <p>{group.name}</p>
-      {elements}
-    </div>
+    return <Accordion>
+      <AccordionPanel label={group.name}>
+        {elements}
+      </AccordionPanel>
+    </Accordion>
   }
 
   _renderElement(element, parentIndex) {
@@ -63,7 +64,7 @@ class ControlsLayout extends React.Component {
 
   render() {
     const elements = this.state.layout.map(this._renderElement)
-    return <Box direction='row'>
+    return <Box direction='row' gap='medium'>
       {elements}
     </Box>
   }
