@@ -1,10 +1,4 @@
-// Parameter types
-// VCED - Voice Edit Parameters
-// ACED - Voice Edit Additional Parameters
-const TYPES = {
-  VCED: 'VCED',
-  ACED: 'ACED'
-}
+import TYPES from './parameterTypes';
 
 const operatorParameters = (operatorNumber, offset) => {
   const offsetId = (param) => Object.assign({}, param, { id: param.id + offset })

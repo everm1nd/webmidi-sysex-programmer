@@ -1,3 +1,5 @@
+import PARAMETER_TYPES from './parameterTypes'
+
 export default [
   {
     type: 'group',
@@ -5,14 +7,17 @@ export default [
     elements: [
       {
         type: 'parameter',
+        parameterType: PARAMETER_TYPES.VCED,
         number: 0
       },
       {
         type: 'parameter',
+        parameterType: PARAMETER_TYPES.VCED,
         number: 1
       },
       {
         type: 'parameter',
+        parameterType: PARAMETER_TYPES.VCED,
         number: 2
       }
     ]
@@ -23,10 +28,12 @@ export default [
     elements: [
       {
         type: 'parameter',
+        parameterType: PARAMETER_TYPES.VCED,
         number: 3
       },
       {
         type: 'parameter',
+        parameterType: PARAMETER_TYPES.VCED,
         number: 4
       }
     ]
