@@ -30,6 +30,7 @@ class ControlsLayout extends React.Component {
   _renderParameter(parameter, index) {
     const parameterValues = {
       number: parameter.number,
+      type: parameter.parameterType,
       value: this.props.parameters[parameter.number]
     }
     return <Parameter key={index} id={index} {...parameterValues} onTypeChange={this._handleTypeChange} onValueChange={this.props.onChange} />

@@ -5,6 +5,11 @@ import _ from "lodash"
 
 class Parameter extends React.Component {
   _getConfig() {
+    // debugger
+    // return _.find(parametersConfig, {
+    //   id: parseInt(this.props.number),
+    //   type: this.props.type
+    // })
     return parametersConfig.find((parameter) => parameter.id === parseInt(this.props.number))
   }
 
